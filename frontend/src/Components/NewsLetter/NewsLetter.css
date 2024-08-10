@@ -1,0 +1,75 @@
+.newsletter {
+    width: 80%;
+    max-width: 800px; /* Set a max-width for better responsiveness */
+    height: auto; /* Remove fixed height for better content scaling */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 20px;
+    margin-bottom: 100px;
+    background: linear-gradient(180deg, #f4e0f3 0%, #d0f0c0 100%);
+    border-radius: 20px; /* Rounded corners for a softer look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    gap: 20px;
+}
+
+.newsletter h1 {
+    color: #6a1b9a; /* Soft purple */
+    font-size: 3rem; /* Adjusted font size for better responsiveness */
+    font-weight: 700;
+    text-align: center;
+    font-family: 'Dancing Script', cursive; /* Elegant font */
+    margin: 0; /* Remove default margin */
+}
+
+.newsletter p {
+    color: #6a1b9a; /* Match heading color */
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif; /* Clean and readable font */
+    margin: 0; /* Remove default margin */
+}
+
+.newsletter div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    width: 100%;
+    max-width: 600px; /* Slightly smaller width */
+    height: 60px;
+    border-radius: 30px; /* Softer curves */
+    border: 1px solid #e1bee7; /* Light purple border */
+    padding: 0 15px;
+}
+
+.newsletter input {
+    flex: 1;
+    border: none;
+    outline: none;
+    color: #4a4a4a;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    padding: 0 20px;
+    border-radius: 30px; /* Rounded edges */
+}
+
+.newsletter div button {
+    width: auto;
+    min-width: 150px;
+    height: 100%;
+    border-radius: 30px;
+    background: #ab47bc; /* Soft purple */
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 20px;
+    border: none;
+    transition: background 0.3s;
+}
+
+.newsletter div button:hover {
+    background: #8e24aa; /* Darker purple on hover */
+}

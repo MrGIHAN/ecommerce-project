@@ -1,0 +1,116 @@
+/* .offers{
+    width: 65%;
+    height: 60vh;
+    display: flex;
+    margin: auto;
+    padding:  0px 140px;
+    margin-top: 50px;
+    margin-bottom: 150px;
+    background: linear-gradient(180deg,#fde1ff 0%,#e1ffea22 60%);
+}
+.offers-left{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.offers-left h1{
+    color: #171717;
+    font-size: 80px;
+    font-weight: 600;
+}
+.offers-left p{
+    color: #171717;
+    font-size: 22px;
+    font-weight: 600;
+}
+.offers-left button{
+    width: 282px;
+    height: 70px;
+    border-radius: 35px;
+    background-color: #ff4141;
+    border: none;
+    color: white;
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 30px;
+    cursor: pointer;
+}
+.offers-right{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 50px;
+} */
+
+.offers {
+    width: 80%; /* Reduced width for better centering */
+    max-width: 1200px; /* Keep the max-width for large screens */
+    height: auto; /* Remove fixed height */
+    display: flex;
+    flex-direction: row; /* Maintain row direction on large screens */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    margin: 50px auto; /* Simplified margin */
+    padding: 40px; /* Adjusted padding for better spacing */
+    background: linear-gradient(180deg, #fde1ff 0%, #e1ffea22 60%);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.offers-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px; /* Consistent padding */
+    text-align: left; /* Align text to left for better readability */
+}
+
+.offers-left h1 {
+    color: #171717;
+    font-size: 3rem; /* Larger font size for emphasis */
+    font-weight: 700; /* Bolder font weight */
+    margin-bottom: 20px;
+}
+
+.offers-left p {
+    color: #171717;
+    font-size: 1.5rem; /* Increased font size for better readability */
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.offers-left button {
+    width: 280px; /* Fixed width for button */
+    height: 60px;
+    border-radius: 30px;
+    background-color: #ff4141;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform for better interaction */
+    align-self: start; /* Align button to start */
+}
+
+.offers-left button:hover {
+    background-color: #e03a3a;
+    transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+.offers-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.offers-right img {
+    max-width: 100%; /* Ensure image is responsive */
+    height: auto;
+    border-radius: 15px; /* Rounded corners for images */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+}

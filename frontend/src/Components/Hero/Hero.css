@@ -1,0 +1,84 @@
+.hero {
+    height: 100vh;
+    background: linear-gradient(180deg, #fde1ff 0%, #e1ffea22 60%);
+    display: flex;
+    align-items: center; /* Aligns content vertically */
+    padding: 0 20px; /* Adds padding to the sides for better spacing */
+    box-sizing: border-box; /* Ensures padding is included in width/height calculations */
+}
+
+.hero-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding-left: 20px; /* Reduced padding for better responsiveness */
+    text-align: left; /* Ensure text is aligned to the left */
+    box-sizing: border-box;
+}
+
+.hero-left h2 {
+    color: #090909;
+    font-size: 2rem; /* Adjusted font size for better scalability */
+    font-weight: 600;
+    margin-bottom: 10px; /* Added margin for spacing */
+}
+
+.hero-left p {
+    color: #171717;
+    font-size: 4rem; /* Adjusted font size for better scalability */
+    font-weight: 700;
+    line-height: 1.2; /* Slightly increased line-height for readability */
+    margin: 0; /* Removed margin for tighter layout */
+}
+
+.hero-hand-icon {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px; /* Added margin for spacing */
+}
+
+.hero-hand-icon img {
+    width: 80px; /* Reduced image size for better proportion */
+    height: auto; /* Ensure image maintains aspect ratio */
+}
+
+.hero-letest-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 250px; /* Adjusted width for better scalability */
+    height: 60px; /* Adjusted height for better proportion */
+    border-radius: 30px; /* Reduced radius for a more modern look */
+    margin-top: 30px;
+    background: #ff4141;
+    color: white;
+    font-size: 1.2rem; /* Adjusted font size for better readability */
+    font-weight: 500;
+    cursor: pointer; /* Added pointer cursor for better UX */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transition for smooth hover effects */
+}
+
+.hero-letest-btn:hover {
+    background-color: #e03a3a; /* Slightly darker shade on hover */
+    transform: scale(1.05); /* Slightly increase button size on hover */
+}
+
+.hero-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Added padding for better spacing */
+    box-sizing: border-box;
+}
+
+.hero-right img {
+    max-width: 80%; /* Ensure the image is responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Slightly rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+}
