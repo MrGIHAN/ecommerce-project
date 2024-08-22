@@ -2,30 +2,28 @@ import React, { useContext } from 'react';
 import { ShopContext } from '../Context/ShopContext';
 import { useParams } from 'react-router-dom';
 import Breadcrum from '../Components/Breadcrums/Breadcrum';
-import ProductDisplay from '../Components/ProductDisplay/ProductDisplay'
+import ProductDisplay from '../Components/ProductDisplay/ProductDisplay';
 
 const Product = () => {
-  const { all_product } = useContext(ShopContext);
-  const { productId } = useParams();
+    const { all_products } = useContext(ShopContext); // Use the correct key
+    const { productId } = useParams();
 
-  // If all_product is undefined or null, return early or show a loading state
-  if (!all_product) {
-    return <div>Loading...</div>;
-  }
+    if (!all_products) {
+        return <div>Loading...</div>;
+    }
 
-  const product = all_product.find((e) => e.id === Number(productId));
+    const product = all_products.find((e) => e.id === Number(productId));
 
-  // Handle case where product is not found
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+    if (!product) {
+        return <div>Product not found</div>;
+    }
 
-  return (
-    <div>
-      <Breadcrum product={product} />
-      <ProductDisplay product={product} />
-    </div>
-  );
+    return (
+        <div>
+            <Breadcrum product={product}/>
+            <ProductDisplay product={product} /> 
+        </div>
+    );
 };
 
 export default Product;
