@@ -1,6 +1,7 @@
 package dev.gihan.e_commerce.api.controller;
 
 import dev.gihan.e_commerce.api.dto.requestDto.ProductRequestDto;
+import dev.gihan.e_commerce.api.dto.responseDto.ProductResponseDto;
 import dev.gihan.e_commerce.api.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,24 +22,24 @@ public class ProductController {
         productService.create(productRequestDto);
     }
 
-//    @GetMapping("/{id}")
-//    public ProductResponseDto getById(@PathVariable Long id) {
-//        return productService.getById(id);
-//    }
-//
-//    @GetMapping
-//    public List<ProductResponseDto> getAll() {
-//        return productService.getAll();
-//    }
-//
-//    @PutMapping("/{id}")
-//    public void update(@PathVariable Long id, @RequestBody ProductRequestDto productRequestDto) {
-//        productService.update(id, productRequestDto);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void delete(@PathVariable Long id) {
-//        productService.delete(id);
-//    }
+    @GetMapping("/{id}")
+    public ProductResponseDto getById(@PathVariable Long id) {
+        return productService.getById(id);
+    }
+
+    @GetMapping
+    public List<ProductResponseDto> getAll() {
+        return productService.getAll();
+    }
+
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody ProductRequestDto productRequestDto) {
+        productService.update(id, productRequestDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        productService.delete(id);
+    }
 }
