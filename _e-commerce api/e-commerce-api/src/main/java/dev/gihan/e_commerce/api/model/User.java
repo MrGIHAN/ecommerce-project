@@ -2,8 +2,6 @@ package dev.gihan.e_commerce.api.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.CascadeType;
-import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
@@ -20,8 +18,8 @@ public class User {
     private String password; // Should be encrypted
     private String roles; // "ROLE_USER,ROLE_ADMIN"
 
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//    private CustomerProfile customerProfile;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private CustomerProfile customerProfile;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
