@@ -11,7 +11,7 @@ public interface UserService {
 
     User create(UserRequestDto userRequestDto)throws AlreadyExistsException, EmptyException;
     User getUserById(long id)throws NotFoundException;
-    User update (Long id, UserRequestDto userRequestDto)throws NotFoundException,AlreadyExistsException;
+    User update (Long id, UserRequestDto userRequestDto)throws NotFoundException;
     void delete (Long id);
 
 }
