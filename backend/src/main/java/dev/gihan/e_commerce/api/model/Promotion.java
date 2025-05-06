@@ -1,5 +1,6 @@
 package dev.gihan.e_commerce.api.model;
 
+import dev.gihan.e_commerce.api.model.option.DiscountType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
