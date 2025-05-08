@@ -43,7 +43,7 @@ A full-featured e-commerce website built with modern web technologies, focusing 
    ```bash
    # Install backend dependencies
    cd server
-   npm install
+   mvn spring-boot:run
 
    # Install frontend dependencies
    cd ../client
