@@ -6,6 +6,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "product_reviews")
 @Data
 public class ProductReview {
 

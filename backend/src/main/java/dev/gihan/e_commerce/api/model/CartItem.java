@@ -1,10 +1,10 @@
 package dev.gihan.e_commerce.api.model;
 
-import dev.gihan.e_commerce.api.entity.Cart;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
+@Table(name = "cart_items")
 @Data
 public class CartItem {
     @Id

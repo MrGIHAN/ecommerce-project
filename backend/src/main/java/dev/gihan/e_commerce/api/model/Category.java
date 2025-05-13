@@ -1,15 +1,11 @@
 package dev.gihan.e_commerce.api.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-
 import java.util.List;
 
 @Entity
+@Table(name = "categories")
 @Data
 public class Category {
 
@@ -22,5 +18,4 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<Product> products;
-
 }

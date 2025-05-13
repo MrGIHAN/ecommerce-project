@@ -1,12 +1,11 @@
 package dev.gihan.e_commerce.api.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "products")
 @Data
 public class Product {
 
@@ -26,5 +25,4 @@ public class Product {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
 }

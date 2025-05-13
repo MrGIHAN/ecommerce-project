@@ -4,11 +4,11 @@ import dev.gihan.e_commerce.api.model.option.PaymentMethod;
 import dev.gihan.e_commerce.api.model.option.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "payments")
 @Data
 public class Payment {
 
@@ -25,5 +25,4 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
 }
