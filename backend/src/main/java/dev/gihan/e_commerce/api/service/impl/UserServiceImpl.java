@@ -22,13 +22,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(UserRequestDto userRequestDto) throws AlreadyExistsException, EmptyException {
 
-        if (userRepository.existsByUserEmail(userRequestDto.getEmail())) {
+        if (userRepository.existsByEmail(userRequestDto.getEmail())) {
             throw new AlreadyExistsException("Username already exists");
         }
         if ((userRequestDto.getPassword() == null || userRequestDto.getPassword().isEmpty())) {
             throw new EmptyException("Password cannot be empty");
         }
-        if (userRepository.existsByUserName(userRequestDto.getUsername())) {
+        if (userRepository.existsByUsername(userRequestDto.getUsername())) {
             throw new AlreadyExistsException("Username already exists");
         }
 
@@ -53,14 +53,14 @@ public class UserServiceImpl implements UserService {
         User user = getUserById(id);
 
         if (userRequestDto.getUsername() != null && !userRequestDto.getUsername().equals(user.getUsername())) {
-            if (userRepository.existsByUserName(userRequestDto.getUsername())) {
+            if (userRepository.existsByUsername(userRequestDto.getUsername())) {
                 throw new AlreadyExistsException("Username already taken");
             }
             user.setUsername(userRequestDto.getUsername());
         }
 
         if (userRequestDto.getEmail() != null && !userRequestDto.getEmail().equals(user.getEmail())) {
-            if (userRepository.existsByUserEmail(userRequestDto.getEmail())) {
+            if (userRepository.existsByEmail(userRequestDto.getEmail())) {
                 throw new AlreadyExistsException("Email already registered");
             }
             user.setEmail(userRequestDto.getEmail());

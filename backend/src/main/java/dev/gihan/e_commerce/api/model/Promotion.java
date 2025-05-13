@@ -1,16 +1,14 @@
 package dev.gihan.e_commerce.api.model;
 
 import dev.gihan.e_commerce.api.model.option.DiscountType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "promotions")
 @Data
 public class Promotion {
 

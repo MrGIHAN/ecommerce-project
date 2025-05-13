@@ -1,16 +1,14 @@
-package dev.gihan.e_commerce.api.entity;
+package dev.gihan.e_commerce.api.model;
 
-import dev.gihan.e_commerce.api.model.CartItem;
-import dev.gihan.e_commerce.api.model.User;
-import jakarta.persistence.*;
-import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
+import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Table(name = "carts")
 @Data
 public class Cart {
 

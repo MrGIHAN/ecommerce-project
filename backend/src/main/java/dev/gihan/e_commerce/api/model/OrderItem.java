@@ -2,10 +2,10 @@ package dev.gihan.e_commerce.api.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "order_items")
 @Data
 public class OrderItem {
 
@@ -19,4 +19,5 @@ public class OrderItem {
     private int quantity;
     private BigDecimal unitPrice;
     private String productName;
+
 }
