@@ -2,44 +2,57 @@ package dev.gihan.e_commerce.api.controller;
 
 import dev.gihan.e_commerce.api.dto.requestDto.ProductRequestDto;
 import dev.gihan.e_commerce.api.dto.responseDto.ProductResponseDto;
+import dev.gihan.e_commerce.api.exception.ProductNotFoundException;
+import dev.gihan.e_commerce.api.security.CustomUserDetails;
 import dev.gihan.e_commerce.api.service.ProductService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
-@AllArgsConstructor
 public class ProductController {
 
+    @Autowired
     private ProductService productService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody ProductRequestDto productRequestDto) {
-        productService.create(productRequestDto);
-    }
+    public ResponseEntity<ProductResponseDto> createProduct(
+            @RequestBody ProductRequestDto dto,
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
 
-    @GetMapping("/{id}")
-    public ProductResponseDto getById(@PathVariable Long id) {
-        return productService.getById(id);
+        ProductResponseDto response = productService.createProduct(dto, userDetails.getUsername());
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<ProductResponseDto> getAll() {
-        return productService.getAll();
+    public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
-    @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody ProductRequestDto productRequestDto) {
-        productService.update(id, productRequestDto);
+    @GetMapping("/my-products")
+    public ResponseEntity<List<ProductResponseDto>> getSellerProducts(
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
+
+        return ResponseEntity.ok(productService.getSellerProducts(userDetails.getUsername()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long id) throws ProductNotFoundException {
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        productService.delete(id);
+    public ResponseEntity<Void> deleteProduct(
+            @PathVariable Long id,
+            @AuthenticationPrincipal CustomUserDetails userDetails) throws ProductNotFoundException {
+
+        productService.deleteProduct(id, userDetails.getUsername());
+        return ResponseEntity.noContent().build();
     }
 }
+

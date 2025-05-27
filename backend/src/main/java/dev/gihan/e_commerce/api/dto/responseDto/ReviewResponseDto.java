@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductResponseDto {
+public class ReviewResponseDto {
 
-    private Long id;
-    private String name;
-    private String description;
-    private double price;
-    private String sellerUsername;
+    private String productName;
+    private String customerUsername;
+    private int rating;
+    private String comment;
 
 }
 

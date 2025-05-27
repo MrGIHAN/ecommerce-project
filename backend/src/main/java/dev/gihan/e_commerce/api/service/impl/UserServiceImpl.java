@@ -1,77 +1,61 @@
 package dev.gihan.e_commerce.api.service.impl;
 
-import dev.gihan.e_commerce.api.dto.requestDto.UserRequestDto;
-import dev.gihan.e_commerce.api.exception.AlreadyExistsException;
-import dev.gihan.e_commerce.api.exception.EmptyException;
-import dev.gihan.e_commerce.api.exception.NotFoundException;
+import dev.gihan.e_commerce.api.dto.responseDto.UserDTO;
+import dev.gihan.e_commerce.api.dto.requestDto.UserRegisterDto;
+import dev.gihan.e_commerce.api.exception.UserAlreadyExistsException;
+import dev.gihan.e_commerce.api.exception.UserNotFoundException;
 import dev.gihan.e_commerce.api.model.User;
+import dev.gihan.e_commerce.api.model.option.Role;
 import dev.gihan.e_commerce.api.repository.UserRepository;
 import dev.gihan.e_commerce.api.service.UserService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public User create(UserRequestDto userRequestDto) throws AlreadyExistsException, EmptyException {
-
-        if (userRepository.existsByEmail(userRequestDto.getEmail())) {
-            throw new AlreadyExistsException("Username already exists");
-        }
-        if ((userRequestDto.getPassword() == null || userRequestDto.getPassword().isEmpty())) {
-            throw new EmptyException("Password cannot be empty");
-        }
-        if (userRepository.existsByUsername(userRequestDto.getUsername())) {
-            throw new AlreadyExistsException("Username already exists");
+    public UserDTO register(UserRegisterDto dto) throws UserAlreadyExistsException {
+        if (userRepository.existsByEmail(dto.getEmail())) {
+            throw new UserAlreadyExistsException("User with email already exists");
         }
 
         User user = new User();
-        user.setUsername(userRequestDto.getUsername());
-        user.setEmail(userRequestDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
 
-        return userRepository.save(user);
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+        user.setPassword(encodedPassword);
+
+        user.setRole(Role.valueOf(dto.getRole().toUpperCase()));
+
+        User savedUser = userRepository.save(user);
+
+        System.out.println("✅ Registered with encoded password: " + encodedPassword);
+
+        return toDTO(savedUser);
     }
 
     @Override
-    public User getUserById(long id) throws NotFoundException {
-        return userRepository.findById(id).orElseThrow(
-                ()-> new NotFoundException("User Not Found" + id)
-        );
+    public UserDTO getUserByUsername(String username) throws UserNotFoundException {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        return toDTO(user);
     }
 
-    @Override
-    @Transactional
-    public User update(Long id, UserRequestDto userRequestDto)throws NotFoundException{
-        User user = getUserById(id);
-
-        if (userRequestDto.getUsername() != null && !userRequestDto.getUsername().equals(user.getUsername())) {
-            if (userRepository.existsByUsername(userRequestDto.getUsername())) {
-                throw new AlreadyExistsException("Username already taken");
-            }
-            user.setUsername(userRequestDto.getUsername());
-        }
-
-        if (userRequestDto.getEmail() != null && !userRequestDto.getEmail().equals(user.getEmail())) {
-            if (userRepository.existsByEmail(userRequestDto.getEmail())) {
-                throw new AlreadyExistsException("Email already registered");
-            }
-            user.setEmail(userRequestDto.getEmail());
-        }
-
-        return userRepository.save(user);
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
+    private UserDTO toDTO(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole().name());
+        return dto;
     }
 }

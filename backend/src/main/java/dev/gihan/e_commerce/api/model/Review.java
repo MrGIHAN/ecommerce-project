@@ -1,23 +1,26 @@
 package dev.gihan.e_commerce.api.model;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "cart_items")
+@Table(name = "reviews")
 @Data
-public class CartItem {
+public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    private int rating; // 1–5
+    private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    private User customer;
+
+    @ManyToOne
     private Product product;
 
-    private int quantity;
 }
+

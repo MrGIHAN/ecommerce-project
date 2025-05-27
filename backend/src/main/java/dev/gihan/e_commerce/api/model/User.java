@@ -1,26 +1,22 @@
 package dev.gihan.e_commerce.api.model;
 
+import dev.gihan.e_commerce.api.model.option.Role;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.List;
 
 @Entity
-@Table(name = "`user`") // Escape SQL reserved keyword
+@Table(name = "users")
 @Data
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
-    private String email;
     private String password;
-    private String roles;
+    private String email;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private CustomerProfile customerProfile;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
 }
