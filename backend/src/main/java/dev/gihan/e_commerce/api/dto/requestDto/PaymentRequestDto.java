@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserRequestDto {
+public class PaymentRequestDto {
 
-    private String username;
-    private String email;
-    private String password;
+    private Long orderId;
+    private String method;
+    private String transactionReference;
 
 }
+

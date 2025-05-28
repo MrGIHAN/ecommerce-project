@@ -2,70 +2,80 @@ package dev.gihan.e_commerce.api.service.impl;
 
 import dev.gihan.e_commerce.api.dto.requestDto.ProductRequestDto;
 import dev.gihan.e_commerce.api.dto.responseDto.ProductResponseDto;
+import dev.gihan.e_commerce.api.exception.ProductNotFoundException;
 import dev.gihan.e_commerce.api.model.Product;
+import dev.gihan.e_commerce.api.model.User;
 import dev.gihan.e_commerce.api.repository.ProductRepository;
+import dev.gihan.e_commerce.api.repository.UserRepository;
 import dev.gihan.e_commerce.api.service.ProductService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.ProviderNotFoundException;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository productRepository;
+    @Autowired
+    private ProductRepository productRepo;
+
+    @Autowired
+    private UserRepository userRepo;
 
     @Override
-    public void create(ProductRequestDto productRequestDto) {
+    public ProductResponseDto createProduct(ProductRequestDto dto, String sellerUsername) {
+        User seller = userRepo.findByUsername(sellerUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("Seller not found"));
+
         Product product = new Product();
-        product.setName(productRequestDto.getName());
-        product.setDescription(productRequestDto.getDescription());
-        product.setPrice(productRequestDto.getPrice());
-        product.setImageUrl(productRequestDto.getImageUrl());
-        productRepository.save(product);
+        product.setName(dto.getName());
+        product.setDescription(dto.getDescription());
+        product.setPrice(dto.getPrice());
+        product.setSeller(seller);
+
+        return mapToDto(productRepo.save(product));
     }
 
     @Override
-    public void update(Long id, ProductRequestDto productRequestDto) {
-        Product product = productRepository.findById(id).orElseThrow(
-                ()-> new ProviderNotFoundException("Product Not Found" + id)
-        );
-        product.setName(productRequestDto.getName());
-        product.setDescription(productRequestDto.getDescription());
-        product.setPrice(productRequestDto.getPrice());
-        product.setImageUrl(productRequestDto.getImageUrl());
-        productRepository.save(product);
+    public List<ProductResponseDto> getAllProducts() {
+        return productRepo.findAll().stream().map(this::mapToDto).toList();
     }
 
     @Override
-    public void delete(Long id) {
-        productRepository.deleteById(id);
+    public List<ProductResponseDto> getSellerProducts(String sellerUsername) {
+        User seller = userRepo.findByUsername(sellerUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("Seller not found"));
+
+        return productRepo.findBySellerId(seller.getId()).stream().map(this::mapToDto).toList();
     }
 
     @Override
-    public ProductResponseDto getById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(
-                () -> new ProviderNotFoundException("Product Not Found " + id)
-        );
-        return new ProductResponseDto(
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getImageUrl()
-        );
+    public ProductResponseDto getProductById(Long id) throws ProductNotFoundException {
+        Product product = productRepo.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        return mapToDto(product);
     }
 
     @Override
-    public List<ProductResponseDto> getAll() {
-        return productRepository.findAll().stream()
-                .map(product -> new ProductResponseDto(
-                        product.getName(),
-                        product.getDescription(),
-                        product.getPrice(),
-                        product.getImageUrl()))
-                .toList();
+    public void deleteProduct(Long id, String sellerUsername) throws ProductNotFoundException {
+        Product product = productRepo.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+
+        if (!product.getSeller().getUsername().equals(sellerUsername)) {
+            throw new SecurityException("You do not own this product.");
+        }
+
+        productRepo.delete(product);
     }
 
+    private ProductResponseDto mapToDto(Product product) {
+        ProductResponseDto dto = new ProductResponseDto();
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setDescription(product.getDescription());
+        dto.setPrice(product.getPrice());
+        dto.setSellerUsername(product.getSeller().getUsername());
+        return dto;
+    }
 }

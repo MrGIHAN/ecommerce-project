@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductRequestDto {
+public class OrderCreateRequestDto {
 
-    private String name;
-    private String description;
-    private double price;
+    private List<OrderItemRequestDto> items;
+    private double discount;
 
 }

@@ -4,20 +4,20 @@ package dev.gihan.e_commerce.api.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
-@Table(name = "payments")
-@Data
-public class Payment {
+import java.time.LocalDate;
 
+@Entity
+@Table(name = "deliveries")
+@Data
+public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String method; // e.g., CARD, CASH
-    private String transactionReference;
-    private boolean successful;
+    private String address;
+    private String trackingNumber;
+    private LocalDate deliveryDate;
 
     @OneToOne
     private Order order;
 }
-

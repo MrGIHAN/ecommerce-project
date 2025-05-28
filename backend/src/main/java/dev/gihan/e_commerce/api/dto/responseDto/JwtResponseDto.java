@@ -7,13 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductResponseDto {
+public class JwtResponseDto {
 
-    private Long id;
-    private String name;
-    private String description;
-    private double price;
-    private String sellerUsername;
+    private String token;
+    private String role;
+    private String username;
 
 }
-

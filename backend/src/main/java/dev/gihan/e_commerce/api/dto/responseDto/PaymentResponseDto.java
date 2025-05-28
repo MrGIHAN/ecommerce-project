@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductResponseDto {
+public class PaymentResponseDto {
 
-    private Long id;
-    private String name;
-    private String description;
-    private double price;
-    private String sellerUsername;
+    private Long paymentId;
+    private boolean successful;
+    private String method;
+    private String transactionReference;
+    private Long orderId;
 
 }
 
